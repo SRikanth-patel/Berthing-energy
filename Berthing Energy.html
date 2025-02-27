@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berthing Energy Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .left {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+        .right {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .formula, .description {
+            color: #bdc3c7;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #ecf0f1;
+        }
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #95a5a6;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+        button {
+            width: 90%;
+            padding: 14px;
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #3498db;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+        footer {
+            font-size: 12px;
+            margin-top: 20px;
+            opacity: 0.8;
+            text-align: center;
+        }
+        footer p {
+            color: #f39c12; /* Change this to the color you prefer for the name */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="left">
+            <h2>Berthing Energy Calculator</h2>
+            <p class="formula"><strong>Formula:</strong> E<sub>C</sub> = 0.5 × C<sub>M</sub> × W<sub>D</sub> × V<sub>B</sub>² × C<sub>E</sub> × C<sub>S</sub> × C<sub>C</sub></p>
+            <p class="description"><strong>Description:</strong> The berthing energy (E<sub>C</sub>) is the kinetic energy absorbed during berthing.</p>
+            <footer>
+                <p>&copy; OE24M008 <span style="color: #f39c12;">A.Srikanth</span></p>
+            </footer>
+        </div>
+        <div class="right">
+            <label for="cm">Hydrodynamic Mass Coefficient (C<sub>M</sub>):</label>
+            <input type="number" id="cm" step="0.01">
+            
+            <label for="wd">Displacement Weight (W<sub>D</sub> in tons):</label>
+            <input type="number" id="wd" step="0.01">
+            
+            <label for="vb">Berthing Velocity (V<sub>B</sub> in m/s):</label>
+            <input type="number" id="vb" step="0.01">
+            
+            <label for="ce">Eccentricity Coefficient (C<sub>E</sub>):</label>
+            <input type="number" id="ce" step="0.01">
+            
+            <label for="cs">Softness Coefficient (C<sub>S</sub>):</label>
+            <input type="number" id="cs" step="0.01" value="1.0">
+            
+            <label for="cc">Berth Configuration Coefficient (C<sub>C</sub>):</label>
+            <input type="number" id="cc" step="0.01" value="1.0">
+            
+            <button onclick="calculateEnergy()">Calculate Energy</button>
+            
+            <div class="result">
+                <h3>Characteristic Berthing Energy (E<sub>C</sub>): <span id="result">-</span> kN·m</h3>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateEnergy() {
+            let CM = parseFloat(document.getElementById('cm').value);
+            let WD = parseFloat(document.getElementById('wd').value); // Weight in tons
+            let VB = parseFloat(document.getElementById('vb').value);
+            let CE = parseFloat(document.getElementById('ce').value);
+            let CS = parseFloat(document.getElementById('cs').value);
+            let CC = parseFloat(document.getElementById('cc').value);
+            
+            if(isNaN(CM) || isNaN(WD) || isNaN(VB) || isNaN(CE) || isNaN(CS) || isNaN(CC)) {
+                alert("Please enter all values correctly.");
+                return;
+            }
+            
+            let EC_kNm = 0.5 * CM * WD * (VB ** 2) * CE * CS * CC; // Energy in kN·m
+            
+            document.getElementById('result').innerText = EC_kNm.toFixed(2);
+        }
+    </script>
+</body>
+</html>
