@@ -19,7 +19,8 @@
             align-items: center;
             min-height: 100vh;
             background-size: cover;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: auto; /* Allow scrolling if needed */
+            padding: 20px; /* Added padding to body */
         }
         .container {
             display: flex;
@@ -27,12 +28,12 @@
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
-            width: 90%;
+            width: 100%;
             padding: 20px;
             background-color: rgba(0, 0, 0, 0.7);
             border-radius: 15px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            margin: 20px; /* Added margin for better spacing */
+            margin: 0 auto; /* Center the container */
         }
         .left, .right {
             flex: 1;
@@ -102,7 +103,6 @@
         @media (max-width: 767px) {
             .container {
                 padding: 15px;
-                margin: 10px; /* Adjusted margin for mobile */
             }
             h2 {
                 font-size: 20px;
@@ -130,7 +130,6 @@
             .container {
                 flex-direction: row;
                 padding: 30px;
-                margin: 30px; /* Adjusted margin for laptop */
             }
             .left, .right {
                 width: 48%;
